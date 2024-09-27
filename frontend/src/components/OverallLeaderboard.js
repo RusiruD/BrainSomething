@@ -31,18 +31,24 @@ const OverallLeaderboard = () => {
             ]);
             
             setUserScoresArray(updatedUserScoresArray); // Set the state with the new array
+
+            // Step 1: Sort by the number of non-null attributes descending then  Sort by the overall score descending
             const sortedUserScoresArray = updatedUserScoresArray.sort((a, b) => {
-                const scoreA = a[5];
-                const scoreB = b[5];
-            
-                const valueA = typeof scoreA === 'number' ? scoreA : -Infinity;
-                const valueB = typeof scoreB === 'number' ? scoreB : -Infinity;
-            
-                return valueB - valueA; // Sort in ascending order
-            });
-            
-            // Update the state with the sorted array
-            setUserScoresArray(sortedUserScoresArray);
+            const nonNullCountA = a.slice(1, 5).filter(attr => attr !== null).length;
+            const nonNullCountB = b.slice(1, 5).filter(attr => attr !== null).length;
+            return nonNullCountB - nonNullCountA; 
+            }).sort((a, b) => {
+        
+                    const scoreA = a[5];
+                    const scoreB = b[5];
+                    const valueA = typeof scoreA === 'number' ? scoreA : -Infinity;
+                    const valueB = typeof scoreB === 'number' ? scoreB : -Infinity;
+
+        return valueB - valueA; // Sort by score
+    });
+
+// Update the state with the sorted array
+setUserScoresArray(sortedUserScoresArray);
         } catch (error) {
             console.error('Error fetching top scores:', error);
         }
