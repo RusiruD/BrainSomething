@@ -25,14 +25,15 @@ const OverallLeaderboard = () => {
                 item.reactionGameScore,
                 item.colourPuzzleScore,
                 item.chimpTestScore,
-            
+                
+                //the overall score formula
                 (item.dinoJumpScore!=null && item.reactionGameScore!=null && item.colourPuzzleScore!=null && item.chimpTestScore!=null) ? 0.25 * item.dinoJumpScore + 0.1 * item.reactionGameScore + 0.15 * item.colourPuzzleScore + 0.5 * item.chimpTestScore : "N/A"
                    
             ]);
             
             setUserScoresArray(updatedUserScoresArray); // Set the state with the new array
 
-            // Step 1: Sort by the number of non-null attributes descending then  Sort by the overall score descending
+            // Step 1: Sort by the number of non-null attributes descending then  Sort by the overall score descending if both are the same recent results supersede older results
             const sortedUserScoresArray = updatedUserScoresArray.sort((a, b) => {
             const nonNullCountA = a.slice(1, 5).filter(attr => attr !== null).length;
             const nonNullCountB = b.slice(1, 5).filter(attr => attr !== null).length;
