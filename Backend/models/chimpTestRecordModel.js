@@ -15,4 +15,5 @@ const chimpTestRecordSchema = new Schema({
 }, { timestamps: true }); // Automatically adds 'createdAt' and 'updatedAt' timestamps
 
 // Export the schema as a model named 'ChimpRecord'
-module.exports = mongoose.model('ChimpRecord', chimpTestRecordSchema);
+
+module.exports = mongoose.model('ChimpTestRecord', chimpTestRecordSchema, 'ChimpTestRecords'); // The third argument specifies the collection name in the database

@@ -15,4 +15,4 @@ const reactionGameRecordSchema = new Schema({
 }, { timestamps: true }); // Automatically adds 'createdAt' and 'updatedAt' timestamps
 
 // Export the schema as a model named 'ReactionRecord'
-module.exports = mongoose.model('ReactionRecord', reactionGameRecordSchema);
+module.exports = mongoose.model('ReactionGameRecord', reactionGameRecordSchema, 'ReactionGameRecords'); // The third argument specifies the collection name in the database

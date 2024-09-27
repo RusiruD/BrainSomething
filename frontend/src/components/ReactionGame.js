@@ -33,6 +33,7 @@ const ReactionGame = ({ onGameOver }) => {
             setReactionTime(reactionTime);
             setColor('blue');
             setMessage(`Your reaction time is ${reactionTime} ms. Click this when you are ready.`);
+          
             onGameOver(reactionTime); // Callback to pass the reaction time to the parent component
         }
     };

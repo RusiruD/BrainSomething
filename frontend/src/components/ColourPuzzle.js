@@ -119,6 +119,7 @@ const ColourPuzzle = ({onGameOver}) => {
         }
         //output the time taken to solve the puzzle in seconds
           const timeTaken = Date.now()-startTime;
+         
         onGameOver(timeTaken/1000);
        
         setPuzzleSolved(true);

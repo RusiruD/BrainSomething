@@ -44,6 +44,7 @@ const Game1 = ({onGameOver}) => {
 
             // Stop checking once the game is over, and pass the length of the game in seconds to the parent component
             if (gameOver) {
+                
                 onGameOver(gameLength/1000); 
                 clearInterval(isAlive);
             }

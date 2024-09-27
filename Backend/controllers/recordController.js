@@ -3,7 +3,8 @@ const ReactionGameRecords = require('../models/reactionRecordModel');
 const DinoJumpRecords = require('../models/dinoJumpRecordModel');
 const ChimpTestRecords = require('../models/chimpTestRecordModel');
 const ColourPuzzleRecords = require('../models/colourPuzzleRecordModel');
-
+const OverallRecords = require('../models/overallScoreRecordModel');
+const { get } = require('mongoose');
 
 // Get all reaction records
 const getAllRecords = async (req, res) => {
@@ -57,26 +58,67 @@ const getTopScores = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
+const getUserScores = async (req, res) => {
+    let records;
+    try {
+        records = await OverallRecords.find({}).sort({ createdAt: -1 });
+        res.status(200).json(records);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+
+
 
 
 // Save a new score
 const saveScore = async (req, res) => {
     const { name, score } = req.body;
     const screen = req.headers['screen'];
-
+    
     try {
+        let overallRecord;
+
+        const nameRecordExists = await OverallRecords.findOne({name}); // Fetch all records
+
+        // Check if the specific name exists in the records
+        if(!nameRecordExists){
+                overallRecord = await OverallRecords.create({ name });
+        }
+
         let record;
         if(screen=="1"){
             record = await DinoJumpRecords.create({ name, score });
+            const updatedRecord = await OverallRecords.findOneAndUpdate(
+                { name },                  // Filter: Find the record by name
+                { dinoJumpScore: score }, // Update: Set the new value(s) for the attribute(s)
+                { new: true }               // Options: Return the updated document
+            );
         }
         else if(screen=="2"){
             record = await ReactionGameRecords.create({ name, score });
+            const updatedRecord = await OverallRecords.findOneAndUpdate(
+                { name },                  // Filter: Find the record by name
+                { reactionGameScore: score }, // Update: Set the new value(s) for the attribute(s)
+                { new: true }               // Options: Return the updated document
+            );
         }
         else if(screen=="3"){
             record = await ColourPuzzleRecords.create({ name, score });
+            const updatedRecord = await OverallRecords.findOneAndUpdate(
+                { name },                  // Filter: Find the record by name
+                { colourPuzzleScore: score }, // Update: Set the new value(s) for the attribute(s)
+                { new: true }               // Options: Return the updated document
+            );
         }
         else if(screen=="4"){
             record = await ChimpTestRecords.create({ name, score });
+            const updatedRecord = await OverallRecords.findOneAndUpdate(
+                { name },                  // Filter: Find the record by name
+                { chimpTestScore: score }, // Update: Set the new value(s) for the attribute(s)
+                { new: true }               // Options: Return the updated document
+            );
         }
 
         
@@ -149,7 +191,8 @@ const getUserRank = async (req, res) => {
 
 module.exports = {
     getAllRecords,
-    getTopScores,
+    getTopScores,getUserScores,
     saveScore,
+   
     getUserRank
 };

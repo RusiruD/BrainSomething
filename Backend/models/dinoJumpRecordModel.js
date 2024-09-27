@@ -15,4 +15,4 @@ const dinoJumpRecordSchema = new Schema({
 }, { timestamps: true }); // Automatically adds 'createdAt' and 'updatedAt' timestamps
 
 // Export the schema as a model named 'DinoRecord'
-module.exports = mongoose.model('DinoRecord', dinoJumpRecordSchema);
+module.exports = mongoose.model('DinoJumpRecord', dinoJumpRecordSchema, 'DinoJumpRecords'); // The third argument specifies the collection name in the database

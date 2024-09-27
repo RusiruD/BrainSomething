@@ -15,4 +15,4 @@ const colourPuzzleRecordSchema = new Schema({
 }, { timestamps: true }); // Automatically adds 'createdAt' and 'updatedAt' timestamps
 
 // Export the schema as a model named 'ColourPuzzleRecord'
-module.exports = mongoose.model('ColourRecord', colourPuzzleRecordSchema);
+module.exports = mongoose.model('ColourPuzzleRecord', colourPuzzleRecordSchema, 'ColourPuzzleRecords'); // The third argument specifies the collection name in the database
