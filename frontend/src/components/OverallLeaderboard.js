@@ -95,7 +95,7 @@ const OverallLeaderboard = () => {
         </tbody>
     </table>
     </div>
- 
+ <h4>Save your score with a unique name. If you save your score in any game with an existing name the score only appears in the leaderboard if it is higher than the current score for that game.</h4>
 </div>
     )
             

@@ -90,35 +90,40 @@ const saveScore = async (req, res) => {
         let record;
         if(screen=="1"){
             record = await DinoJumpRecords.create({ name, score });
+            //only updates the overall score if the new score is higher than the current score
+            if(score> nameRecordExists.dinoJumpScore){
             const updatedRecord = await OverallRecords.findOneAndUpdate(
                 { name },                  // Filter: Find the record by name
-                { dinoJumpScore: score }, // Update: Set the new value(s) for the attribute(s)
+                { dinoJumpScore: score },   // Update: Set the new value(s) for the attribute(s)
                 { new: true }               // Options: Return the updated document
-            );
+            );}
         }
         else if(screen=="2"){
             record = await ReactionGameRecords.create({ name, score });
+            if(score< nameRecordExists.reactionGameScore){
             const updatedRecord = await OverallRecords.findOneAndUpdate(
-                { name },                  // Filter: Find the record by name
-                { reactionGameScore: score }, // Update: Set the new value(s) for the attribute(s)
-                { new: true }               // Options: Return the updated document
-            );
+                { name },                  
+                { reactionGameScore: score }, 
+                { new: true }               
+            );}
         }
         else if(screen=="3"){
             record = await ColourPuzzleRecords.create({ name, score });
+            if(score< nameRecordExists.colourPuzzleScore){
             const updatedRecord = await OverallRecords.findOneAndUpdate(
-                { name },                  // Filter: Find the record by name
-                { colourPuzzleScore: score }, // Update: Set the new value(s) for the attribute(s)
-                { new: true }               // Options: Return the updated document
-            );
+                { name },                 
+                { colourPuzzleScore: score }, 
+                { new: true }              
+            );}
         }
         else if(screen=="4"){
             record = await ChimpTestRecords.create({ name, score });
+            if(score> nameRecordExists.chimpTestScore){
             const updatedRecord = await OverallRecords.findOneAndUpdate(
-                { name },                  // Filter: Find the record by name
-                { chimpTestScore: score }, // Update: Set the new value(s) for the attribute(s)
-                { new: true }               // Options: Return the updated document
-            );
+                { name },                 
+                { chimpTestScore: score }, 
+                { new: true }               
+            );}
         }
 
         
